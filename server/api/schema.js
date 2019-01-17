@@ -23,7 +23,7 @@ module.exports = gql`
     itemowner: User!
     tags: [Tag]
     created: Date!
-    borrower: User!
+    borrower: User
   }
 
   type User {
