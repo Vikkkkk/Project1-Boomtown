@@ -54,7 +54,7 @@ module.exports = postgres => {
     },
     async getUserById(id) {
       const findUserQuery = {
-        text: 'SELECT * FROM users WHERE id = $1', // @TODO: Authentication - Server
+        text: 'SELECT id,email,name AS fullname, bio FROM users WHERE id = $1', // @TODO: Authentication - Server
         values: [id]
       };
       try {
