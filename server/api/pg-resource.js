@@ -1,11 +1,6 @@
 const strs = require('stringstream');
 
 function tagsQueryString(tags, itemid, result) {
-  /**
-   * Challenge:
-   * This function is recursive, and a little complicated.
-   * Can you refactor it to be simpler / more readable?
-   */
   const length = tags.length;
   return length === 0
     ? `${result};`
@@ -94,7 +89,7 @@ module.exports = postgres => {
     },
     async getTagsForItem(id) {
       const tagsQuery = {
-        text: `SELECT name AS title,id FROM tags WHERE id IN (SELECT tagid FROM itemtags WHERE itemid = $1)`, // @TODO: Advanced queries
+        text: `SELECT name AS title,id FROM tags WHERE id IN (SELECT tagid FROM itemtags WHERE itemid = $1)`,
         values: [id]
       };
 
@@ -145,16 +140,18 @@ module.exports = postgres => {
                 // Generate new Item query
                 // @TODO
                 // -------------------------------
+                const newItemQuery = {
+                  text: `INSERT INTO items(title,description,ownerid) VALUES ($1,$2,$3) RETURNING *`,
+                  values: [title, description, user.id]
+                };
 
-                // Insert new Item
-                // @TODO
-                // -------------------------------
+                const insertNewItem = await postgres.query(newItemQuery);
 
                 const imageUploadQuery = {
                   text:
                     'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
                   values: [
-                    // itemid,
+                    itemid,
                     image.filename,
                     image.mimetype,
                     'base64',
@@ -168,8 +165,6 @@ module.exports = postgres => {
 
                 // Generate image relation query
                 // @TODO
-                // -------------------------------
-
                 // Insert image
                 // @TODO
                 // -------------------------------
@@ -178,6 +173,18 @@ module.exports = postgres => {
                 // @TODO
                 // -------------------------------
 
+                const tagRelationshipQuery = {
+                  text: `INSERT INTO itemtags(itemid,tagid) VALUES ${tagQueryString(
+                    [...tags],
+                    itemid,
+                    ''
+                  )} RETURNING *`,
+                  values: tags.map(tag => tag.id)
+                };
+                // -------------------------------
+                const insertNewTagQuery = await postgres.query(
+                  tagRelationshipQuery
+                );
                 // Insert tags
                 // @TODO
                 // -------------------------------
