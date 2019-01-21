@@ -1,22 +1,38 @@
 # Boomtown 🏙
 
-## Server
+Boomtown is a web application made for people to easily share and borrow various items with others in the community!
+
+## Technologies Used
+
+Server
+
+- PostgresSQL
+- Apollo Server
+- GraphQL
+- Node.js
+- Express
+
+## Gettin Started
+
+---
+
+### Server
 
 Commands must be run from the `server` directory:
 
-### Installation
+#### Installation
 
 ```bash
 npm install
 ```
 
-### Run
+#### Run
 
 ```bash
 npm run start:dev
 ```
 
-### Tests
+#### Tests
 
 Just linting:
 
@@ -48,29 +64,29 @@ Run all tests:
 npm run test
 ```
 
-## Client
+###Client
 
 Commands must be run from the `client` directory:
 
-### Installation
+#### Installation
 
 ```bash
 npm install
 ```
 
-### Run
+#### Run
 
 ```bash
 npm start
 ```
 
-### Build
+#### Build
 
 ```bash
 npm run build
 ```
 
-### Tests
+#### Tests
 
 Just linting:
 
@@ -90,4 +106,7 @@ Run all tests:
 npm run test
 ```
 
+### Lessons Learned
 
+- Creating a database and using SQL queries
+- GraphQL api using Apollo
