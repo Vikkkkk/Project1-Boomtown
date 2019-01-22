@@ -67,8 +67,9 @@ const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
       <CssBaseline />
-      <Home />
-      <ApolloProvider clinet={client} />
+      <ApolloProvider client={client}>
+        <Home />
+      </ApolloProvider>
     </MuiThemeProvider>
   );
 };
