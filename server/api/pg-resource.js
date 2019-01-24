@@ -124,76 +124,77 @@ module.exports = postgres => {
         postgres.connect((err, client, done) => {
           try {
             // Begin postgres transaction
-            client.query('BEGIN', err => {
+            client.query('BEGIN', async err => {
               // Convert image (file stream) to Base64
-              const imageStream = image.stream.pipe(strs('base64'));
+              // const imageStream = image.stream.pipe(strs('base64'));
 
-              let base64Str = '';
-              imageStream.on('data', data => {
-                base64Str += data;
-              });
+              // let base64Str = '';
+              // imageStream.on('data', data => {
+              //   base64Str += data;
+              // });
 
-              imageStream.on('end', async () => {
-                // Image has been converted, begin saving things
-                const { title, description, tags } = item;
+              // imageStream.on('end', async () => {
+              // Image has been converted, begin saving things
+              const { title, description, tags } = item;
 
-                // Generate new Item query
-                // @TODO
+              // Generate new Item query
+              // @TODO
+              // -------------------------------
+              const newItemQuery = {
+                text: `INSERT INTO items(title,description,ownerid) VALUES ($1,$2,$3) RETURNING *`,
+                values: [title, description, user.id]
+              };
+
+              const insertNewItem = await postgres.query(newItemQuery);
+
+              // const imageUploadQuery = {
+              //   text:
+              //     'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+              //   values: [
+              //     itemid,
+              //     image.filename,
+              //     image.mimetype,
+              //     'base64',
+              //     base64Str
+              //   ]
+              // };
+
+              // Upload image
+              // const uploadedImage = await client.query(imageUploadQuery);
+              // const imageid = uploadedImage.rows[0].id;
+
+              // Generate image relation query
+              // @TODO
+              // Insert image
+              // @TODO
+              // -------------------------------
+
+              const tagRelationshipQuery = {
+                text: `INSERT INTO itemtags(itemid,tagid) VALUES ${tagsQueryString(
+                  [...tags],
+                  insertNewItem.rows[0].id,
+                  ''
+                )} `,
+                values: tags.map(tag => tag.id)
+              };
+
+              const insertNewTagQuery = await postgres.query(
+                tagRelationshipQuery
+              );
+
+              // Commit the entire transaction!
+              client.query('COMMIT', err => {
+                if (err) {
+                  throw err;
+                }
+                // release the client back to the pool
+                done();
+                // Uncomment this resolve statement when you're ready!
+                resolve(insertNewItem.rows[0]);
                 // -------------------------------
-                const newItemQuery = {
-                  text: `INSERT INTO items(title,description,ownerid) VALUES ($1,$2,$3) RETURNING *`,
-                  values: [title, description, user.id]
-                };
-
-                const insertNewItem = await postgres.query(newItemQuery);
-
-                const imageUploadQuery = {
-                  text:
-                    'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-                  values: [
-                    itemid,
-                    image.filename,
-                    image.mimetype,
-                    'base64',
-                    base64Str
-                  ]
-                };
-
-                // Upload image
-                const uploadedImage = await client.query(imageUploadQuery);
-                const imageid = uploadedImage.rows[0].id;
-
-                // Generate image relation query
-                // @TODO
-                // Insert image
-                // @TODO
-                // -------------------------------
-
-                const tagRelationshipQuery = {
-                  text: `INSERT INTO itemtags(itemid,tagid) VALUES ${tagQueryString(
-                    [...tags],
-                    itemid,
-                    ''
-                  )} RETURNING *`,
-                  values: tags.map(tag => tag.id)
-                };
-
-                const insertNewTagQuery = await postgres.query(
-                  tagRelationshipQuery
-                );
-
-                // Commit the entire transaction!
-                client.query('COMMIT', err => {
-                  if (err) {
-                    throw err;
-                  }
-                  // release the client back to the pool
-                  done();
-                  // Uncomment this resolve statement when you're ready!
-                  // resolve(newItem.rows[0])
-                  // -------------------------------
-                });
+                // ** return something here
               });
+              // });
             });
           } catch (e) {
             // Something went wrong

@@ -8,26 +8,26 @@ const ItemFields = gql`
   fragment ItemFields on Item {
     id
     title
-    imageurl
+    # imageurl
     description
-    created
-    tags {
-      id
-      title
-    }
+    # created
+    # tags {
+    #   id
+    #   title
+    # }
 
-    itemowner {
-      id
-      fullname
-      email
-      bio
-    }
-    borrower {
-      id
-      fullname
-      email
-      bio
-    }
+    # itemowner {
+    #   id
+    #   fullname
+    #   email
+    #   bio
+    # }
+    # borrower {
+    #   id
+    #   fullname
+    #   email
+    #   bio
+    # }
   }
 `;
 // export const ITEM_QUERY = gql`
@@ -38,8 +38,8 @@ const ItemFields = gql`
 // `;
 
 export const ALL_ITEMS_QUERY = gql`
-  query items(filter: ID) {
-    items(filter:$filter){
+  query items($filter: ID) {
+    items(filter: $filter) {
       ...ItemFields
     }
   }
