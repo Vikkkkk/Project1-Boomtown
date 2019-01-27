@@ -15,11 +15,13 @@ import ShareItemForm from '../../components/ShareItemForm/ShareItemForm';
 // import ShareItemForm from '../../components/ShareItemForm';
 // import ShareItemPreview from '../../components/ShareItemPreview';
 
-const Share = ({ classes }) => {
+const Share = ({ classes, tags }) => {
+  console.log(tags);
+  console.log(classes);
   return (
     <div>
       <p>
-        <ShareItemForm />
+        <ShareItemForm classes={classes} tags={tags} />
       </p>
     </div>
   );

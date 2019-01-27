@@ -10,6 +10,7 @@ import styles from './styles';
 import ItemCard from '../ItemCard/ItemCard';
 
 const ItemsGrid = ({ classes, items }) => {
+  console.log(classes);
   console.log(items);
   return (
     <Grid className={classes.grid} container spacing={8}>
