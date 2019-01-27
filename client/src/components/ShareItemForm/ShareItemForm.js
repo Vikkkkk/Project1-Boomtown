@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import ListItemText from '@material-ui/core/ListItemText';
+import Input from '@material-ui/core/Input';
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -53,8 +54,13 @@ class ShareItemForm extends Component {
                 name="name"
                 render={({ input, meta }) => (
                   <div className="field">
-                    <label for="name">Name</label>
-                    <TextField inputProps={input} />
+                    <TextField
+                      id="standard-textarea"
+                      label="Item Name"
+                      multiline
+                      className={classes.TextField}
+                      margin="normal"
+                    />
 
                     {meta.touched &&
                       meta.invalid && (
@@ -72,8 +78,14 @@ class ShareItemForm extends Component {
                 name="description"
                 render={({ input, meta }) => (
                   <div className="field">
-                    <label for="email">Item description</label>
-                    <TextField rows="8" />
+                    {/* <label for="description">Item description</label>
+                    <TextField rows="8" /> */}
+                    <Input
+                      placeholder="Item Description"
+                      className={classes.input}
+                      multiline
+                      rows="4"
+                    />
                     {meta.touched &&
                       meta.invalid && (
                         <div
@@ -126,12 +138,3 @@ class ShareItemForm extends Component {
 }
 
 export default ShareItemForm;
-
-// {
-//   tags.map(tag => (
-//     <MenuItem key={tag.id} value={tag.title}>
-//       <Checkbox checked={this.state.checked.indexOf(tag.title) > -1} />
-//       <ListItemText primary={tag.title} />
-//     </MenuItem>
-//   ));
-// }

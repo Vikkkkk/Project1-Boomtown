@@ -11,7 +11,7 @@ import ItemCard from '../ItemCard/ItemCard';
 
 const ItemsGrid = ({ classes, items }) => {
   console.log(classes);
-  console.log(items);
+  // console.log(items);
   return (
     <Grid className={classes.grid} container spacing={8}>
       {items.map(item => {
