@@ -67,22 +67,20 @@ module.exports = app => {
        *
        */
       // @TODO: Uncomment these lines after you define the User type with these fields
-      async items(parent, args, { pgResource }) {
+      async items({ id }, args, { pgResource }) {
         try {
-          const userItems = await pgResource.getitemsForUser(user.id);
+          const userItems = await pgResource.getItemsForUser(id);
           return userItems;
         } catch (err) {
-          throw new ApolloError(e);
+          throw new ApolloError(err);
         }
       },
-      async borrowed(parent, args, { pgResource }) {
+      async borrowed({ id }, args, { pgResource }) {
         try {
-          const borrowedItems = await pgResource.getBorroweditemsForUser(
-            user.id
-          );
+          const borrowedItems = await pgResource.getBorrowedItemsForUser(id);
           return borrowedItems;
         } catch (err) {
-          throw new ApolloError(e);
+          throw new ApolloError(err);
         }
       }
     },
@@ -93,15 +91,15 @@ module.exports = app => {
           const itemOwner = await pgResource.getUserById(item.ownerid);
           return itemOwner;
         } catch (err) {
-          throw new ApolloError(e);
+          throw new ApolloError(err);
         }
       },
       async tags(item, args, { pgResource }) {
         try {
           const itemTags = await pgResource.getTagsForItem(item.id);
           return itemTags;
-        } catch (e) {
-          throw new ApolloError(e);
+        } catch (err) {
+          throw new ApolloError(err);
         }
       },
       async borrower(item, arg, { pgResource }) {
@@ -109,7 +107,7 @@ module.exports = app => {
           const borrower = await pgResource.getUserById(item.borrowerid);
           return borrower;
         } catch (err) {
-          throw new ApolloError(e);
+          throw new ApolloError(err);
         }
       },
       async imageurl({ imageurl, imageid, mimetype, data }) {

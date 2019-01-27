@@ -69,7 +69,7 @@ module.exports = postgres => {
     },
     async getItemsForUser(id) {
       const items = await postgres.query({
-        text: `SELECT * FROM items WEHRE ownerid = $1`,
+        text: `SELECT * FROM items WHERE ownerid = $1`,
         values: [id]
       });
       return items.rows;
@@ -170,7 +170,7 @@ module.exports = postgres => {
               // -------------------------------
 
               const tagRelationshipQuery = {
-                text: `INSERT INTO itemtags(itemid,tagid) VALUES ${tagsQueryString(
+                text: `INSERT INTO itemtags(tagid,itemid) VALUES ${tagsQueryString(
                   [...tags],
                   insertNewItem.rows[0].id,
                   ''

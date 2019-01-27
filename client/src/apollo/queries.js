@@ -10,32 +10,32 @@ const ItemFields = gql`
     title
     # imageurl
     description
-    # created
-    # tags {
-    #   id
-    #   title
-    # }
+    #  created
+    tags {
+      id
+      title
+    }
 
-    # itemowner {
-    #   id
-    #   fullname
-    #   email
-    #   bio
-    # }
-    # borrower {
-    #   id
-    #   fullname
-    #   email
-    #   bio
-    # }
+    itemowner {
+      id
+      fullname
+      email
+      bio
+    }
+    borrower {
+      id
+      fullname
+      email
+      bio
+    }
   }
 `;
-// export const ITEM_QUERY = gql`
-//   query item($id: ID!) {
-//     ...ItemFields
-//   }
-//   ${ItemFields}
-// `;
+export const ITEM_QUERY = gql`
+  query item($id: ID!) {
+    ...ItemFields
+  }
+  ${ItemFields}
+`;
 
 export const ALL_ITEMS_QUERY = gql`
   query items($filter: ID) {
@@ -46,26 +46,51 @@ export const ALL_ITEMS_QUERY = gql`
   ${ItemFields}
 `;
 
-// export const ALL_USER_ITEMS_QUERY = gql`
-//   query user($id: ID!) {
-//     # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id
-//     # Use the ItemFields fragment for the items and borrowed fields.
-//   }
-//   ${ItemFields}
-// `;
+export const ALL_USER_ITEMS_QUERY = gql`
+  query user($id: ID!) {
+    user(id: $id) {
+      bio
+      email
+      fullname
+      items {
+        ...ItemFields
+      }
+      borrowed {
+        ...ItemFields
+      }
+    }
+  }
+  ${ItemFields}
+`;
 
-// export const ALL_TAGS_QUERY = gql`
-//   query {
-//     # @TODO: Query the id and title fields for tags.
-//   }
-// `;
+export const ALL_TAGS_QUERY = gql`
+  query {
+    tags {
+      id
+      title
+    }
+    # @TODO: Query the id and title fields for tags.
+  }
+`;
 
-// export const ADD_ITEM_MUTATION = gql`
-//   mutation addItem($item: NewItemInput!, $image: Upload!) {
-//     # @TODO: Pass the item and image into the addItem mutation as arguments
-//     # and return the new item id when the mutation is complete.
-//   }
-// `;
+export const ADD_ITEM_MUTATION = gql`
+  mutation addItem($item: NewItemInput!, $image: Upload) {
+    # @TODO: Pass the item and image into the addItem mutation as arguments
+    # and return the new item id when the mutation is complete.
+    mutation
+    addItem(item: NewItemInput, image: Upload) {
+      addItem(item: $item, image: $image) {
+        id
+        title
+        description
+        tags {
+          id
+          title
+        }
+      }
+    }
+  }
+`;
 
 // /**
 //  * Auth-related queries and mutations.

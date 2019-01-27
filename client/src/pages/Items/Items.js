@@ -1,14 +1,11 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import ItemsGrid from '../../components/ItemsGrid/ItemsGrid';
 
-const Items = ({ classes }) => {
-  return (
-    <div>
-      <p>
-        This is the items page located at <code>/items</code>.
-      </p>
-    </div>
-  );
+const Items = ({ classes, items }) => {
+  return <ItemsGrid className={classes} items={items} />;
 };
 
 export default Items;
-
