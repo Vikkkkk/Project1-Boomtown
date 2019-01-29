@@ -17,7 +17,8 @@ class ShareItemForm extends Component {
       checked: [],
       title: '',
       description: ' ',
-      newtag: ''
+      newtag: '',
+      name: []
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -144,6 +145,40 @@ class ShareItemForm extends Component {
                         ))}
                       </Select>
                     </FormControl>
+                    {/* added */}
+                    {/* <FormControl className={classes.formControl}>
+                      <InputLabel htmlFor="select-multiple-chip">
+                        Chip
+                      </InputLabel>
+                      <Select
+                        multiple
+                        value={this.state.name}
+                        onChange={this.handleChange}
+                        input={<Input id="select-multiple-chip" />}
+                        renderValue={selected => (
+                          <div className={classes.chips}>
+                            {selected.map(value => (
+                              <Chip
+                                key={value}
+                                label={value}
+                                className={classes.chip}
+                              />
+                            ))}
+                          </div>
+                        )}
+                        MenuProps={MenuProps}
+                      >
+                        {names.map(name => (
+                          <MenuItem
+                            key={name}
+                            value={name}
+                            style={getStyles(name, this)}
+                          >
+                            {name}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl> */}
                   </div>
                 )}
               />
