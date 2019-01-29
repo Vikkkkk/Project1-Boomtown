@@ -14,8 +14,12 @@ class ShareItemForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: []
+      checked: [],
+      title: '',
+      description: ' ',
+      newtag: ''
     };
+    this.handleChange = this.handleChange.bind(this);
   }
   onSubmit(o) {
     console.log('Submitting:', o);
@@ -41,6 +45,18 @@ class ShareItemForm extends Component {
     const { classes } = this.props;
     const { tags } = this.props;
     console.log(this.props);
+    console.log(classes);
+
+    const ITEM_HEIGHT = 48;
+    const ITEM_PADDING_TOP = 8;
+    const MenuProps = {
+      PaperProps: {
+        style: {
+          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+          width: 250
+        }
+      }
+    };
 
     return (
       <div className={classes}>
@@ -60,6 +76,8 @@ class ShareItemForm extends Component {
                       multiline
                       className={classes.TextField}
                       margin="normal"
+                      onChange="{this.handleChange}"
+                      // value="{this.state.title}"
                     />
 
                     {meta.touched &&
@@ -78,8 +96,6 @@ class ShareItemForm extends Component {
                 name="description"
                 render={({ input, meta }) => (
                   <div className="field">
-                    {/* <label for="description">Item description</label>
-                    <TextField rows="8" /> */}
                     <Input
                       placeholder="Item Description"
                       className={classes.input}
@@ -105,12 +121,14 @@ class ShareItemForm extends Component {
                     <label for="name">Tags</label>
 
                     <FormControl fullWidth>
-                      <InputLabel htmlFor="age-simple">Tags!</InputLabel>
+                      <InputLabel>Tags!</InputLabel>
                       <Select
                         value={tags}
                         onChange={this.handleChange}
+                        input={<Input id="select-multiple" />}
+                        MenuProps={MenuProps}
                         inputProps={{
-                          name: 'Item Tags',
+                          name: 'ItemTags',
                           id: 'tagid'
                         }}
                       >

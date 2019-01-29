@@ -1,5 +1,10 @@
 import React from 'react';
 import ShareItemForm from '../../components/ShareItemForm/ShareItemForm';
+import ShareItemFormPreview from '../../components/ShareItemFormPreview/ShareItemFormPreview';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import styles from './styles';
+
 /* 
   TODO: Create ShareItemFrom and ShareItemPreview in the components dir
   and call them from this file.
@@ -18,13 +23,22 @@ import ShareItemForm from '../../components/ShareItemForm/ShareItemForm';
 const Share = ({ classes, tags }) => {
   console.log(tags);
   console.log(classes);
+
   return (
-    <div>
-      <p>
-        <ShareItemForm classes={classes} tags={tags} />
-      </p>
+    <div className={classes.sharePageFlex}>
+      <Grid container className={classes.ormPreview} spacing={16}>
+        <Grid item xs={12}>
+          <ShareItemFormPreview classes={classes} />
+        </Grid>
+      </Grid>
+
+      <Grid container className={classes.shareForm} spacing={16}>
+        <Grid item xs={12}>
+          <ShareItemForm classes={classes} tags={tags} />
+        </Grid>
+      </Grid>
     </div>
   );
 };
 
-export default Share;
+export default withStyles(styles)(Share);

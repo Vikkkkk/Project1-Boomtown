@@ -9,9 +9,12 @@ import Radio from '@material-ui/core/Radio';
 import styles from './styles';
 import ItemCard from '../ItemCard/ItemCard';
 
-const ItemsGrid = ({ classes, items }) => {
+const ItemsGrid = props => {
+  const classes = props.classes;
+  const items = props.items;
   console.log(classes);
-  // console.log(items);
+  console.log(props);
+  console.log(items);
   return (
     <Grid className={classes.grid} container spacing={8}>
       {items.map(item => {

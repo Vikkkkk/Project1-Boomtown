@@ -42,4 +42,8 @@ ItemCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
+ItemCard.defaultProps = {
+  item: { title: 'ex.mango', description: 'ex.fruit', tags: ['sweet', 'sour'] }
+};
+
 export default withStyles(styles)(ItemCard);
