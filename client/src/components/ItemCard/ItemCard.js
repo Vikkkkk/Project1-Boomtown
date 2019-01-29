@@ -16,16 +16,16 @@ const ItemCard = ({ classes, item }) => {
       <Fragment>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image={item.imageurl}
+          title="Your-Item-Card"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            <h2>{item.title}</h2>
+          <Typography gutterBottom component="h2">
+            {item.title}
           </Typography>
+          <Typography component="p">{item.description}</Typography>
           <Typography component="p">
-            <p>{item.description}</p>
-            <p>{item.tags.map(tag => tag.title)}</p>
+            {item.tags.map(tag => tag.title).join(', ')}
           </Typography>
         </CardContent>
       </Fragment>
@@ -43,7 +43,12 @@ ItemCard.propTypes = {
 };
 
 ItemCard.defaultProps = {
-  item: { title: 'ex.mango', description: 'ex.fruit', tags: ['sweet', 'sour'] }
+  item: {
+    title: 'ex.mango',
+    description: 'ex.fruit',
+    tags: ['sweet', 'sour'],
+    imageurl: 'http://via.placeholder.com/350x250?text=Please select an image'
+  }
 };
 
 export default withStyles(styles)(ItemCard);

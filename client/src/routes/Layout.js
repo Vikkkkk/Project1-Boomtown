@@ -9,9 +9,7 @@ import Typography from '@material-ui/core/Typography';
 
 export default () => (
   <Fragment>
-    <Typography>
-      <NavBar />
-    </Typography>
+    <NavBar />
 
     {/* @TODO: Add your menu component here */}
     <Switch>

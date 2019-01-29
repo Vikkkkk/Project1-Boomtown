@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
+// import Grid from '@material-ui/core/Grid';
 import ItemCard from '../../components/ItemCard/ItemCard';
+import { connect } from 'react-redux';
 
-class ShareItemFormPreview extends Component {
-  render() {
-    const { classes } = this.props;
-    const { item } = this.props;
-    console.log(this.props);
-    console.log(classes);
-    return (
-      <div className={classes}>
-        <Grid item xs={12} sm={6} md={4} className={classes.gridItem}>
-          <ItemCard />
-        </Grid>
-      </div>
-    );
-  }
-}
+const ShareItemFormPreview = ({ shareItemPreview }) => {
+  return <ItemCard item={shareItemPreview} />;
+};
+//trying to connect react with redux
 
-export default ShareItemFormPreview;
+//() in arrow function means implicit return
+const mapStateToProps = state => ({ shareItemPreview: state.shareItemPreview });
+
+//connect takes in 2 arguments, and when we do function composition, we put them side by side just like here.
+export default connect(mapStateToProps)(ShareItemFormPreview);

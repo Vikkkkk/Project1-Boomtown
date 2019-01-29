@@ -22,7 +22,7 @@ const NavBar = ({ classes }) => {
           >
             <img src={logo} width="40" />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
+          <Typography component="h6" color="inherit" className={classes.grow}>
             News
           </Typography>
           <Button color="inherit">Login</Button>

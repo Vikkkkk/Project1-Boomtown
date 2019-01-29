@@ -5,7 +5,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   formPreview: {
-    width: '50%'
+    maxWidth: '50%'
   },
   shareForm: {
     width: '50%'

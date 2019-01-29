@@ -26,7 +26,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case UPDATE_Item: {
+    case UPDATE_ITEM: {
       //everything is in the action.payload, so spreading it will update each things in the state
       return { ...state, ...action.payload };
     }
