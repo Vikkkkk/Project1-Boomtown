@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import Checkbox from '@material-ui/core/Checkbox';
-import ListItemText from '@material-ui/core/ListItemText';
-import Input from '@material-ui/core/Input';
-import Button from '@material-ui/core/Button';
+import { validate } from './helpers/validation';
+
+import {
+  TextField,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  Checkbox,
+  ListItemText,
+  Input,
+  Button
+} from '@material-ui/core';
 
 import {
   updateItem,
@@ -31,18 +35,6 @@ class ShareItemForm extends Component {
   }
   onSubmit(o) {
     console.log('Submitting:', o);
-  }
-
-  validate(o) {
-    console.log('Validating:', o);
-    const error = {};
-    if (!o.name) {
-      error.name = 'Name is required';
-    }
-    if (!o.email) {
-      error.email = 'Description is required';
-    }
-    return error;
   }
 
   handleSelectTags = event => {
@@ -98,7 +90,7 @@ class ShareItemForm extends Component {
 
   render() {
     const { classes, tags, updateItem, resetImage, resetItem } = this.props;
-
+    console.log(this.state.selectedTags);
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -115,8 +107,10 @@ class ShareItemForm extends Component {
         <h3>Share. Borrow. Prosper.</h3>
         <Form
           onSubmit={this.onSubmit}
-          validate={this.validate}
-          render={({ handleSubmit }) => (
+          validate={values =>
+            validate(values, this.state.fileSelected, this.state.selectedTags)
+          }
+          render={({ handleSubmit, pristine, submitting, invalid }) => (
             <form onSubmit={handleSubmit}>
               <FormSpy
                 subscription={{ values: true }}
@@ -128,16 +122,31 @@ class ShareItemForm extends Component {
                 }}
               />
               <label htmlFor="contained-button-file">
-                <Button
-                  className={classes.imageButton}
-                  variant="contained"
-                  component="span"
-                  onClick={() => {
-                    this.fileInput.current.click();
-                  }}
-                >
-                  select an image
-                </Button>
+                {!this.state.fileSelected ? (
+                  <Button
+                    className={classes.imageButton}
+                    variant="contained"
+                    component="span"
+                    onClick={() => {
+                      this.fileInput.current.click();
+                    }}
+                  >
+                    select an image
+                  </Button>
+                ) : (
+                  <Button
+                    className={classes.imageButton}
+                    variant="contained"
+                    component="span"
+                    onClick={() => {
+                      this.fileInput.current.value = '';
+                      this.setState({ fileSelected: false });
+                      resetImage();
+                    }}
+                  >
+                    Reset Image
+                  </Button>
+                )}
                 <input
                   type="file"
                   id="fileInput"
@@ -155,7 +164,6 @@ class ShareItemForm extends Component {
                       {...input}
                       id="standard-textarea"
                       label="Item Name"
-                      multiline
                       className={classes.TextField}
                       margin="normal"
                     />
@@ -181,7 +189,6 @@ class ShareItemForm extends Component {
                       {...input}
                       className={classes.input}
                       multiline
-                      rows="4"
                     />
                     {meta.touched &&
                       meta.invalid && (
@@ -227,6 +234,14 @@ class ShareItemForm extends Component {
                   </div>
                 )}
               />
+              <Button
+                className={classes.shareButton}
+                variant="contained"
+                type="submit"
+                disabled={submitting || pristine || invalid}
+              >
+                Share
+              </Button>
             </form>
           )}
         />
