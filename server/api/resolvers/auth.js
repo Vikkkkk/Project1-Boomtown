@@ -39,7 +39,7 @@ function generateToken(user, secret) {
   // -------------------------------
 }
 
-module.exports = (app) => {
+module.exports = app => {
   return {
     async signup(parent, args, context) {
       try {
@@ -53,26 +53,29 @@ module.exports = (app) => {
          * The solution is to create a cryptographic hash of the password provided,
          * and store that instead. The password can be decoded using the original password.
          */
-        // @TODO: Use bcrypt to generate a cryptographic hash to conceal the user's password before storing it.
-        const hashedPassword = '';
+        // Use bcrypt to generate a cryptographic hash to conceal the user's password before storing it.
+        const hashedPassword = await bcrypt.hash(args.user.password, 10);
+        console.log(hashedPassword);
+        console.log(args.user.password);
         // -------------------------------
 
         const user = await context.pgResource.createUser({
-          fullname: args.user.fullname,
+          name: args.user.fullname,
           email: args.user.email,
           password: hashedPassword
         });
 
-        setCookie({
-          tokenName: app.get('JWT_COOKIE_NAME'),
-          token: generateToken(user, app.get('JWT_SECRET')),
-          res: context.req.res
-        });
+        // setCookie({
+        //   tokenName: app.get('JWT_COOKIE_NAME'),
+        //   token: generateToken(user, app.get('JWT_SECRET')),
+        //   res: context.req.res
+        // });
 
         return {
           id: user.id
         };
       } catch (e) {
+        console.log(e);
         throw new AuthenticationError(e);
       }
     },
@@ -100,9 +103,10 @@ module.exports = (app) => {
           res: context.req.res
         });
 
-        return {
-          id: user.id
-        };
+        return 'hihihihi';
+        // return {
+        //   id: user.id
+        // };
       } catch (e) {
         throw new AuthenticationError(e);
       }
