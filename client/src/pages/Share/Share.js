@@ -26,14 +26,11 @@ const Share = ({ classes, tags }) => {
 
   return (
     <div className={classes.sharePageFlex}>
-      <Grid container className={classes.ormPreview} spacing={16}>
-        <Grid item xs={12}>
+      <Grid container className={classes.ormPreview}>
+        <Grid item xs={6}>
           <ShareItemFormPreview classes={classes} />
         </Grid>
-      </Grid>
-
-      <Grid container className={classes.shareForm} spacing={16}>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <ShareItemForm classes={classes} tags={tags} />
         </Grid>
       </Grid>

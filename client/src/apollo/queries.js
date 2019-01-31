@@ -99,6 +99,10 @@ export const ADD_ITEM_MUTATION = gql`
 // export const VIEWER_QUERY = gql`
 //   query {
 //     # @TODO: Query the id, email, fullname, and bio fields for the viewer.
+//     id
+//     email
+//     fullname
+//     bio
 //   }
 // `;
 // export const LOGOUT_MUTATION = gql`
@@ -107,16 +111,18 @@ export const ADD_ITEM_MUTATION = gql`
 //   }
 // `;
 
-// export const SIGNUP_MUTATION = gql`
-//   mutation signup($user: SignupInput!) {
-//     # @TODO: Pass the user into the signup mutation as an argument
-//     # and return the id of the new user when the mutation is complete.
-//   }
-// `;
+export const SIGNUP_MUTATION = gql`
+  mutation signup($user: UserSignUp!) {
+    # @TODO: Pass the user into the signup mutation as an argument
+    # and return the id of the new user when the mutation is complete.
+    signup(user: $user)
+  }
+`;
 
-// export const LOGIN_MUTATION = gql`
-//   mutation login($user: LoginInput!) {
-//     # @TODO: Pass the user into the login mutation as an argument
-//     # and return the id of the new user when the mutation is complete.
-//   }
-// `;
+export const LOGIN_MUTATION = gql`
+  mutation login($user: UserLogin!) {
+    # @TODO: Pass the user into the login mutation as an argument
+    # and return the id of the new user when the mutation is complete.
+    login(user: $user)
+  }
+`;

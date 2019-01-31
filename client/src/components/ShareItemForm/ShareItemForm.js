@@ -11,7 +11,8 @@ import {
   Checkbox,
   ListItemText,
   Input,
-  Button
+  Button,
+  Typography
 } from '@material-ui/core';
 
 import {
@@ -104,7 +105,7 @@ class ShareItemForm extends Component {
 
     return (
       <div className={classes}>
-        <h3>Share. Borrow. Prosper.</h3>
+        <Typography>Share. Borrow. Prosper.</Typography>
         <Form
           onSubmit={this.onSubmit}
           validate={values =>

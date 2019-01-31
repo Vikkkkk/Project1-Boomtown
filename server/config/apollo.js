@@ -30,7 +30,8 @@ module.exports = ({ app, pgResource }) => {
       // -------------------------------
 
       return {
-        pgResource
+        pgResource,
+        req
         /**
          * @TODO: Provide Apollo context
          *
