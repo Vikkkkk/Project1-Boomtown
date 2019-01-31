@@ -1,7 +1,7 @@
 const { ApolloError } = require('apollo-server-express');
 
 // @TODO: Uncomment these lines later when we add auth
-// const jwt = require("jsonwebtoken")
+const jwt = require('jsonwebtoken');
 const authMutations = require('./auth');
 // -------------------------------
 const { UploadScalar, DateScalar } = require('../custom-types');
@@ -12,7 +12,7 @@ module.exports = app => {
     Date: DateScalar,
 
     Query: {
-      viewer() {
+      viewer(root, args, { token }) {
         /**
          * @TODO: Authentication - Server
          *
@@ -27,6 +27,12 @@ module.exports = app => {
          *  the token's stored user here. If there is no token, the user has signed out,
          *  in which case you'll return null
          */
+
+        if (token) {
+          console.log(token);
+          console.log(jwt.decode(token, app.get('JWT_SECRET')));
+          return jwt.decode(token, app.get('JWT_SECRET'));
+        }
         return null;
       },
       async user(parent, { id }, { pgResource }, info) {
@@ -123,10 +129,10 @@ module.exports = app => {
       ...authMutations(app),
       // -------------------------------
 
-      async addItem(parent, args, { pgResource }, info) {
-        // const image = await image;
-        // const user = await jwt.decode(pgResource.token, app.get('JWT_SECRET'));
-        const user = { id: 13 };
+      async addItem(parent, args, { pgResource }) {
+        const image = await image;
+        const user = await jwt.decode(pgResource.token, app.get('JWT_SECRET'));
+        // const user = { id: 13 };
         const newItem = await pgResource.saveNewItem({
           item: args.item,
           // image: args.image,

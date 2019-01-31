@@ -96,15 +96,17 @@ export const ADD_ITEM_MUTATION = gql`
 //  * Auth-related queries and mutations.
 //  */
 
-// export const VIEWER_QUERY = gql`
-//   query {
-//     # @TODO: Query the id, email, fullname, and bio fields for the viewer.
-//     id
-//     email
-//     fullname
-//     bio
-//   }
-// `;
+export const VIEWER_QUERY = gql`
+  query viewrQuery {
+    # @TODO: Query the id, email, fullname, and bio fields for the viewer.
+    viewer {
+      id
+      email
+      name
+      bio
+    }
+  }
+`;
 // export const LOGOUT_MUTATION = gql`
 //   mutation {
 //     # @TODO: Run the logout mutation.
