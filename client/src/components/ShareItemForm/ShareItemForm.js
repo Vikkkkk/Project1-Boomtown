@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Form, Field, FormSpy } from 'react-final-form';
 import { validate } from './helpers/validation';
+import { ADD_ITEM_MUTATION } from '../../apollo/queries';
+import { Mutation } from 'react-apollo';
 
 import {
   TextField,
@@ -34,6 +36,7 @@ class ShareItemForm extends Component {
       selectedTags: []
     };
   }
+
   onSubmit(o) {
     console.log('Submitting:', o);
   }
@@ -235,14 +238,30 @@ class ShareItemForm extends Component {
                   </div>
                 )}
               />
-              <Button
-                className={classes.shareButton}
-                variant="contained"
-                type="submit"
-                disabled={submitting || pristine || invalid}
-              >
-                Share
-              </Button>
+              <Mutation mutation={ADD_ITEM_MUTATION}>
+                {addItemMutation => (
+                  <Button
+                    className={classes.shareButton}
+                    variant="contained"
+                    type="submit"
+                    onClick={() => {
+                      console.log(addItemMutation);
+                      addItemMutation({
+                        variables: {
+                          item: {
+                            title: 'wtf',
+                            description: 'wertf',
+                            tags: []
+                          }
+                        }
+                      });
+                    }}
+                    disabled={submitting || pristine || invalid}
+                  >
+                    Share
+                  </Button>
+                )}
+              </Mutation>
             </form>
           )}
         />
@@ -250,6 +269,7 @@ class ShareItemForm extends Component {
     );
   }
 }
+
 //this function maps dispatch to props, this way we can access the dispatch (fire an action) from our props.
 //the store is already wrapped our app class so the store is always there. which is also we use this way. where we
 //put the dispatch in the props and use the same name(or key) to call it

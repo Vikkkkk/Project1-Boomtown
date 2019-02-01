@@ -21,7 +21,9 @@ function setCookie({ tokenName, token, res }) {
 }
 
 function generateToken(user, secret) {
-  const { id, email, fullname, bio } = user; // Omit the password from the token
+  const { id, email, name, bio } = user; // Omit the password from the token
+  // through console logging i realized that the name gets lost here because its called full name in the querey.
+  const fullname = name;
   const token = jwt.sign({ id, email, fullname, bio }, secret);
 
   /**

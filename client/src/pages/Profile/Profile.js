@@ -4,7 +4,7 @@ const Profile = ({ classes }) => {
   return (
     <div>
       <p>
-        This is the profile page located at <code>/profile/:userId</code>.
+        just add your profile cards here <code>/profile/:userId</code>.
       </p>
     </div>
   );

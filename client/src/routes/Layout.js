@@ -6,19 +6,34 @@ import Share from '../pages/Share';
 import Home from '../pages/Home';
 import NavBar from '../components/NavBar/NavBar';
 import Typography from '@material-ui/core/Typography';
+import { ViewerContext } from '../context/ViewerProvider';
+import FullScreenLoader from '../components/FullScreenLoader';
 
 export default () => (
-  <Fragment>
+  <React.Fragment>
     <NavBar />
-
-    {/* @TODO: Add your menu component here */}
-    <Switch>
-      <Route exact path="/welcome" component={Home} />
-      <Route exact path="/items" component={Items} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/profile:userid" component={Profile} />
-      <Route exact path="/share" component={Share} />
-      <Redirect to="/items" />
-    </Switch>
-  </Fragment>
+    <ViewerContext.Consumer>
+      {({ viewer, loading }) => {
+        if (loading) return <FullScreenLoader inverted />;
+        if (viewer) {
+          return (
+            <Switch>
+              <Route exact path="/items" component={Items} />
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/profile/:userid" component={Profile} />
+              <Route exact path="/share" component={Share} />
+              <Redirect from="*" to="/items" />
+            </Switch>
+          );
+        } else {
+          return (
+            <Switch>
+              <Route exact path="/welcome" component={Home} />
+              <Redirect from="*" to="/welcome" />;
+            </Switch>
+          );
+        }
+      }}
+    </ViewerContext.Consumer>
+  </React.Fragment>
 );

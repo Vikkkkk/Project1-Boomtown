@@ -1,4 +1,5 @@
 export function validate(values, fileSelected, selectedTags) {
+  console.log(selectedTags);
   const errors = {};
 
   /**
@@ -14,7 +15,7 @@ export function validate(values, fileSelected, selectedTags) {
   if (!fileSelected) {
     errors.fileSelected = 'Image is missing';
   }
-  if (!selectedTags) {
+  if (selectedTags.length < 1) {
     errors.tags = 'at least one tag is required';
   }
 

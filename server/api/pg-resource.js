@@ -42,6 +42,7 @@ module.exports = postgres => {
       };
       try {
         const user = await postgres.query(findUserQuery);
+        console.log(user);
         if (!user) throw 'User was not found.';
         return user.rows[0];
       } catch (e) {
@@ -49,13 +50,15 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
+      console.log('helloowerewrw');
       const findUserQuery = {
-        text: 'SELECT id,email,name AS fullname, bio FROM users WHERE id = $1', // @TODO: Authentication - Server
+        text: 'SELECT id,email, name AS fullname, bio FROM users WHERE id = $1', // @TODO: Authentication - Server
         values: [id]
       };
       try {
         const user = await postgres.query(findUserQuery);
         if (!user) throw 'User was not found.';
+        console.log(user.rows);
         return user.rows[0];
       } catch (e) {
         throw 'User was not found.';
@@ -97,7 +100,7 @@ module.exports = postgres => {
       const tags = await postgres.query(tagsQuery);
       return tags.rows;
     },
-    async saveNewItem({ item, image, user }) {
+    async saveNewItem({ item, user }) {
       /**
        *  @TODO: Adding a New Item
        *
@@ -141,6 +144,7 @@ module.exports = postgres => {
               // Generate new Item query
               // @TODO
               // -------------------------------
+              console.log(user);
               const newItemQuery = {
                 text: `INSERT INTO items(title,description,ownerid) VALUES ($1,$2,$3) RETURNING *`,
                 values: [title, description, user.id]

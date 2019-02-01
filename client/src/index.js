@@ -38,11 +38,11 @@ const App = () => {
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <ApolloProvider client={client}>
-          {/* <ViewerProvider> */}
-          <BrowserRouter>
-            <Layout />
-          </BrowserRouter>
-          {/* </ViewerProvider> */}
+          <ViewerProvider>
+            <BrowserRouter>
+              <Layout />
+            </BrowserRouter>
+          </ViewerProvider>
         </ApolloProvider>
       </MuiThemeProvider>
     </ReduxProvider>

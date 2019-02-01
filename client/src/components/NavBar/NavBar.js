@@ -25,7 +25,7 @@ const NavBar = ({ classes }) => {
           <Typography component="h6" color="inherit" className={classes.grow}>
             News
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
