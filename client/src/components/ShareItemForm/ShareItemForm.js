@@ -37,10 +37,6 @@ class ShareItemForm extends Component {
     };
   }
 
-  onSubmit(o) {
-    console.log('Submitting:', o);
-  }
-
   handleSelectTags = event => {
     this.setState({ selectedTags: event.target.value });
   };
@@ -109,162 +105,185 @@ class ShareItemForm extends Component {
     return (
       <div className={classes}>
         <Typography>Share. Borrow. Prosper.</Typography>
-        <Form
-          onSubmit={this.onSubmit}
-          validate={values =>
-            validate(values, this.state.fileSelected, this.state.selectedTags)
-          }
-          render={({ handleSubmit, pristine, submitting, invalid }) => (
-            <form onSubmit={handleSubmit}>
-              <FormSpy
-                subscription={{ values: true }}
-                component={({ values }) => {
-                  if (values) {
-                    this.dispatchUpdate(values, tags, updateItem);
-                  }
-                  return '';
+        <Mutation mutation={ADD_ITEM_MUTATION}>
+          {addItemMutation => {
+            return (
+              <Form
+                onSubmit={values => {
+                  addItemMutation({
+                    variables: {
+                      item: {
+                        ...values,
+                        tags: this.state.selectedTags.map(tag => ({
+                          id: tag,
+                          title: ''
+                        }))
+                      }
+                    }
+                  });
+                  resetItem();
+                  // console.log('wtfffreset');
                 }}
-              />
-              <label htmlFor="contained-button-file">
-                {!this.state.fileSelected ? (
-                  <Button
-                    className={classes.imageButton}
-                    variant="contained"
-                    component="span"
-                    onClick={() => {
-                      this.fileInput.current.click();
-                    }}
-                  >
-                    select an image
-                  </Button>
-                ) : (
-                  <Button
-                    className={classes.imageButton}
-                    variant="contained"
-                    component="span"
-                    onClick={() => {
-                      this.fileInput.current.value = '';
-                      this.setState({ fileSelected: false });
-                      resetImage();
-                    }}
-                  >
-                    Reset Image
-                  </Button>
-                )}
-                <input
-                  type="file"
-                  id="fileInput"
-                  ref={this.fileInput}
-                  accept="image/*"
-                  onChange={this.handleSelectFile}
-                  hidden
-                />
-              </label>
-              <Field
-                name="title"
-                render={({ input, meta }) => (
-                  <div className="field">
-                    <TextField
-                      {...input}
-                      id="standard-textarea"
-                      label="Item Name"
-                      className={classes.TextField}
-                      margin="normal"
-                    />
-
-                    {meta.touched &&
-                      meta.invalid && (
-                        <div
-                          className="error"
-                          style={{ color: 'red', fontsize: '10px' }}
-                        >
-                          {meta.error}
-                        </div>
-                      )}
-                  </div>
-                )}
-              />
-              <Field
-                name="description"
-                render={({ input, meta }) => (
-                  <div className="field">
-                    <Input
-                      placeholder="Item Description"
-                      {...input}
-                      className={classes.input}
-                      multiline
-                    />
-                    {meta.touched &&
-                      meta.invalid && (
-                        <div
-                          className="error"
-                          style={{ color: 'red', fontsize: '10px' }}
-                        >
-                          {meta.error}
-                        </div>
-                      )}
-                  </div>
-                )}
-              />
-              <Field
-                name="tags"
-                render={({ classes, meta }) => (
-                  <div className="field">
-                    <label htmlFor="tags">Tags</label>
-                    <FormControl fullWidth>
-                      <InputLabel>Tags!</InputLabel>
-
-                      <Select
-                        multiple
-                        value={this.state.selectedTags}
-                        onChange={this.handleSelectTags}
-                        input={<Input id="select-multiple" />}
-                        renderValue={selected => {
-                          return this.generateTagsText(tags, selected);
-                        }}
-                      >
-                        {tags.map(tag => (
-                          <MenuItem key={tag.id} value={tag.id}>
-                            <Checkbox
-                              checked={
-                                this.state.selectedTags.indexOf(tag.id) > -1
-                              }
-                            />
-                            <ListItemText primary={tag.title} />
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </div>
-                )}
-              />
-              <Mutation mutation={ADD_ITEM_MUTATION}>
-                {addItemMutation => (
-                  <Button
-                    className={classes.shareButton}
-                    variant="contained"
-                    type="submit"
-                    onClick={() => {
-                      console.log(addItemMutation);
-                      addItemMutation({
-                        variables: {
-                          item: {
-                            title: 'wtf',
-                            description: 'wertf',
-                            tags: []
-                          }
+                validate={values =>
+                  validate(
+                    values,
+                    this.state.fileSelected,
+                    this.state.selectedTags
+                  )
+                }
+                render={({
+                  handleSubmit,
+                  pristine,
+                  submitting,
+                  invalid,
+                  form
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <FormSpy
+                      subscription={{ values: true }}
+                      component={({ values }) => {
+                        if (values) {
+                          this.dispatchUpdate(values, tags, updateItem);
                         }
-                      });
-                    }}
-                    disabled={submitting || pristine || invalid}
-                  >
-                    Share
-                  </Button>
+                        return '';
+                      }}
+                    />
+                    <label htmlFor="contained-button-file">
+                      {!this.state.fileSelected ? (
+                        <Button
+                          className={classes.imageButton}
+                          variant="contained"
+                          component="span"
+                          onClick={() => {
+                            this.fileInput.current.click();
+                          }}
+                        >
+                          select an image
+                        </Button>
+                      ) : (
+                        <Button
+                          className={classes.imageButton}
+                          variant="contained"
+                          component="span"
+                          onClick={() => {
+                            this.fileInput.current.value = '';
+                            this.setState({ fileSelected: false });
+                            resetImage();
+                          }}
+                        >
+                          Reset Image
+                        </Button>
+                      )}
+                      <input
+                        type="file"
+                        id="fileInput"
+                        ref={this.fileInput}
+                        accept="image/*"
+                        onChange={this.handleSelectFile}
+                        hidden
+                      />
+                    </label>
+                    <Field
+                      name="title"
+                      render={({ input, meta }) => (
+                        <div className="field">
+                          <TextField
+                            {...input}
+                            id="standard-textarea"
+                            label="Item Name"
+                            className={classes.TextField}
+                            margin="normal"
+                          />
+
+                          {meta.touched &&
+                            meta.invalid && (
+                              <div
+                                className="error"
+                                style={{ color: 'red', fontsize: '10px' }}
+                              >
+                                {meta.error}
+                              </div>
+                            )}
+                        </div>
+                      )}
+                    />
+                    <Field
+                      name="description"
+                      render={({ input, meta }) => (
+                        <div className="field">
+                          <Input
+                            placeholder="Item Description"
+                            {...input}
+                            className={classes.input}
+                            multiline
+                          />
+                          {meta.touched &&
+                            meta.invalid && (
+                              <div
+                                className="error"
+                                style={{ color: 'red', fontsize: '10px' }}
+                              >
+                                {meta.error}
+                              </div>
+                            )}
+                        </div>
+                      )}
+                    />
+                    <Field
+                      name="tags"
+                      render={({ classes, meta }) => (
+                        <div className="field">
+                          <label htmlFor="tags">Tags</label>
+                          <FormControl fullWidth>
+                            <InputLabel>Tags!</InputLabel>
+
+                            <Select
+                              multiple
+                              value={this.state.selectedTags}
+                              onChange={this.handleSelectTags}
+                              input={<Input id="select-multiple" />}
+                              renderValue={selected => {
+                                return this.generateTagsText(tags, selected);
+                              }}
+                            >
+                              {tags.map(tag => (
+                                <MenuItem key={tag.id} value={tag.id}>
+                                  <Checkbox
+                                    checked={
+                                      this.state.selectedTags.indexOf(tag.id) >
+                                      -1
+                                    }
+                                  />
+                                  <ListItemText primary={tag.title} />
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </div>
+                      )}
+                    />
+
+                    <Button
+                      className={classes.shareButton}
+                      variant="contained"
+                      type="submit"
+                      onClick={() => {
+                        this.fileInput.current.value = '';
+                        this.setState({ fileSelected: false });
+                        form.reset();
+                        resetItem();
+                        this.setState({ selectedTags: [] });
+                      }}
+                      disabled={submitting || pristine || invalid}
+                    >
+                      Share
+                    </Button>
+                  </form>
                 )}
-              </Mutation>
-            </form>
-          )}
-        />
+              />
+            );
+          }}
+        </Mutation>
       </div>
     );
   }

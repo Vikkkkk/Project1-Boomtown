@@ -75,8 +75,6 @@ export const ALL_TAGS_QUERY = gql`
 
 export const ADD_ITEM_MUTATION = gql`
   mutation addItem($item: NewItemInput!) {
-    # @TODO: Pass the item and image into the addItem mutation as arguments
-    # and return the new item id when the mutation is complete.
     addItem(item: $item) {
       id
       title
@@ -104,11 +102,12 @@ export const VIEWER_QUERY = gql`
     }
   }
 `;
-// export const LOGOUT_MUTATION = gql`
-//   mutation {
-//     # @TODO: Run the logout mutation.
-//   }
-// `;
+export const LOGOUT_MUTATION = gql`
+  mutation {
+    logout
+    # @TODO: Run the logout mutation.
+  }
+`;
 
 export const SIGNUP_MUTATION = gql`
   mutation signup($user: UserSignUp!) {
