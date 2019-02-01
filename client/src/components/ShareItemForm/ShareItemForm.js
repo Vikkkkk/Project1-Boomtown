@@ -109,7 +109,7 @@ class ShareItemForm extends Component {
           {addItemMutation => {
             return (
               <Form
-                onSubmit={values => {
+                onSubmit={async values => {
                   addItemMutation({
                     variables: {
                       item: {
@@ -138,7 +138,17 @@ class ShareItemForm extends Component {
                   invalid,
                   form
                 }) => (
-                  <form onSubmit={handleSubmit}>
+                  <form
+                    onSubmit={event => {
+                      handleSubmit(event).then(() => {
+                        this.fileInput.current.value = '';
+                        this.setState({ fileSelected: false });
+                        form.reset();
+                        resetItem();
+                        this.setState({ selectedTags: [] });
+                      });
+                    }}
+                  >
                     <FormSpy
                       subscription={{ values: true }}
                       component={({ values }) => {
@@ -267,13 +277,13 @@ class ShareItemForm extends Component {
                       className={classes.shareButton}
                       variant="contained"
                       type="submit"
-                      onClick={() => {
-                        this.fileInput.current.value = '';
-                        this.setState({ fileSelected: false });
-                        form.reset();
-                        resetItem();
-                        this.setState({ selectedTags: [] });
-                      }}
+                      // onClick={() => {
+                      //   this.fileInput.current.value = '';
+                      //   this.setState({ fileSelected: false });
+                      //   form.reset();
+                      //   resetItem();
+                      //   this.setState({ selectedTags: [] });
+                      // }}
                       disabled={submitting || pristine || invalid}
                     >
                       Share
@@ -297,6 +307,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateItem(item));
   },
   resetItem() {
+    console.log('am i dispatched?');
     dispatch(resetItem());
   },
   resetImage() {

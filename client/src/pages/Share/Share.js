@@ -26,7 +26,7 @@ const Share = ({ classes, tags }) => {
 
   return (
     <div className={classes.sharePageFlex}>
-      <Grid container className={classes.ormPreview}>
+      <Grid container className={classes.formPreview}>
         <Grid item xs={6}>
           <ShareItemFormPreview classes={classes} />
         </Grid>
