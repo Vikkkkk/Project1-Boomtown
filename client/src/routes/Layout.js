@@ -16,6 +16,7 @@ export default () => (
         if (loading) return <FullScreenLoader inverted />;
         if (viewer) {
           console.log(viewer);
+
           return (
             <Fragment>
               <NavBar user={viewer} />

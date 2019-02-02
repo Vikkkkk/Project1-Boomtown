@@ -8,6 +8,7 @@ import { ALL_TAGS_QUERY } from '../../apollo/queries';
 
 class ShareContainer extends Component {
   render() {
+    console.log(this.props.match.path);
     return (
       <Query variables={{ filter: 0 }} query={ALL_TAGS_QUERY}>
         {({ loading, error, data }) => {

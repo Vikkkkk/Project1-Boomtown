@@ -13,7 +13,7 @@ import Gravatar from 'react-gravatar';
 import { Link, WithRouter } from 'react-router-dom';
 
 const ItemCard = ({ classes, item }) => {
-  console.log(item);
+  // console.log(item);
 
   return (
     <Card className={classes.card}>

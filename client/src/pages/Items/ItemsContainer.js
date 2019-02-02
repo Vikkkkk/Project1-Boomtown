@@ -8,6 +8,7 @@ import { ALL_ITEMS_QUERY } from '../../apollo/queries';
 
 class ItemsContainer extends Component {
   render() {
+    console.log(this.props);
     return (
       <Query variables={{ filter: 0 }} query={ALL_ITEMS_QUERY}>
         {({ loading, error, data }) => {

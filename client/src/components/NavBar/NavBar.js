@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../../images/boomtown.svg';
@@ -14,6 +15,7 @@ import styles from './styles';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
 import { graphql, compose } from 'react-apollo';
 import Link from 'react-router-dom/Link';
+import { withRouter } from 'react-router';
 import {
   MoreVert,
   AddCircle,
@@ -38,7 +40,9 @@ class NavBar extends React.Component {
 
   render() {
     const { classes } = this.props;
+    const { location } = this.props;
     const { anchorEl } = this.state;
+    console.log(this.props);
 
     const open = Boolean(anchorEl);
     return (
@@ -54,11 +58,18 @@ class NavBar extends React.Component {
               <img src={logo} width="40" />
             </IconButton>
             <div className={classes.grow} />
-            <Typography component="h6" color="inherit">
-              <Button color="inherit" href="/share">
-                <AddCircle /> Share your Item
-              </Button>
-            </Typography>
+            <Slide
+              direction="left"
+              in={location.pathname !== '/share'}
+              mountOnEnter
+              unmountOnExit
+            >
+              <Typography component="h6" color="inherit">
+                <Button color="inherit" href="/share">
+                  <AddCircle /> Share your Item
+                </Button>
+              </Typography>
+            </Slide>
             <IconButton onClick={this.handleMenu} color="inherit">
               <MoreVert />
             </IconButton>
@@ -110,5 +121,6 @@ export default compose(
     },
     name: 'logoutMutation'
   }),
-  withStyles(styles)
+  withStyles(styles),
+  withRouter
 )(NavBar);

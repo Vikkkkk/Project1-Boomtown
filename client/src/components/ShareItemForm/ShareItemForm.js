@@ -277,13 +277,6 @@ class ShareItemForm extends Component {
                       className={classes.shareButton}
                       variant="contained"
                       type="submit"
-                      // onClick={() => {
-                      //   this.fileInput.current.value = '';
-                      //   this.setState({ fileSelected: false });
-                      //   form.reset();
-                      //   resetItem();
-                      //   this.setState({ selectedTags: [] });
-                      // }}
                       disabled={submitting || pristine || invalid}
                     >
                       Share
