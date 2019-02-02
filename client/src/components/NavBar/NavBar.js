@@ -13,12 +13,12 @@ import logo from '../../images/boomtown.svg';
 import styles from './styles';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
 import { graphql, compose } from 'react-apollo';
+import Link from 'react-router-dom/Link';
 import {
   MoreVert,
   AddCircle,
   Fingerprint,
-  PowerSettingsNew,
-  Link
+  PowerSettingsNew
 } from '@material-ui/icons';
 
 class NavBar extends React.Component {
@@ -39,6 +39,7 @@ class NavBar extends React.Component {
   render() {
     const { classes } = this.props;
     const { anchorEl } = this.state;
+
     const open = Boolean(anchorEl);
     return (
       <div className={classes.root}>
@@ -52,8 +53,8 @@ class NavBar extends React.Component {
             >
               <img src={logo} width="40" />
             </IconButton>
-
-            <Typography component="h6" color="inherit" className={classes.grow}>
+            <div className={classes.grow} />
+            <Typography component="h6" color="inherit">
               <Button color="inherit" href="/share">
                 <AddCircle /> Share your Item
               </Button>
@@ -75,8 +76,8 @@ class NavBar extends React.Component {
               }}
               onClose={this.handleClose}
             >
-              <MenuItem component={Link} to="/profile">
-                <Fingerprint /> Profile
+              <MenuItem component={Link} to={`/profile/${this.props.user.id}`}>
+                <Fingerprint /> Your Frickin Profile
               </MenuItem>
               <MenuItem
                 onClick={e => {

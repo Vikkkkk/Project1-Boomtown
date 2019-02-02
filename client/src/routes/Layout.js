@@ -15,9 +15,10 @@ export default () => (
       {({ viewer, loading }) => {
         if (loading) return <FullScreenLoader inverted />;
         if (viewer) {
+          console.log(viewer);
           return (
             <Fragment>
-              <NavBar />
+              <NavBar user={viewer} />
 
               <Switch>
                 <Route exact path="/items" component={Items} />

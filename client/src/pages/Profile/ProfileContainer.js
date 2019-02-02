@@ -11,14 +11,13 @@ class ProfileContainer extends Component {
     const id = this.props.match.params.userid || '1';
     // const id = '1';
     return (
-      // <Items />
       <Query variables={{ id: id }} query={ALL_USER_ITEMS_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return <FullScreenLoader inverted />;
           if (error) return <p>{`Error! ${error.message}`}</p>;
           console.log(data);
           console.log(id);
-          return <Profile classes={this.props.classes} profiles={data.users} />;
+          return <Profile classes={this.props.classes} profile={data.user} />;
         }}
       </Query>
     );

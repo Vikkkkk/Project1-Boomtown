@@ -20,7 +20,7 @@ const initialState = {
   description: 'but what is it?',
   tags: [],
   imageurl: 'http://via.placeholder.com/350x250?text=Please select an image',
-  itemOwner: {},
+  itemowner: {},
   created: new Date()
 };
 

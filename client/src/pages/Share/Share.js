@@ -26,6 +26,7 @@ const Share = ({ classes, tags }) => {
 
   return (
     <div className={classes.sharePageFlex}>
+      {/* <NavBar /> */}
       <Grid container className={classes.formPreview}>
         <Grid item xs={6}>
           <ShareItemFormPreview classes={classes} />

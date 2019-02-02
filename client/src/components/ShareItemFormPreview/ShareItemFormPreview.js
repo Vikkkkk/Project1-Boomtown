@@ -4,7 +4,7 @@ import ItemCard from '../../components/ItemCard/ItemCard';
 import { connect } from 'react-redux';
 
 const ShareItemFormPreview = ({ shareItemPreview }) => {
-  console.log('>>>>>>>>>>', shareItemPreview);
+  console.log(shareItemPreview);
   return <ItemCard item={shareItemPreview} />;
 };
 //trying to connect react with redux

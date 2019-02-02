@@ -10,9 +10,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles';
 import Gravatar from 'react-gravatar';
+import { Link, WithRouter } from 'react-router-dom';
 
 const ItemCard = ({ classes, item }) => {
   console.log(item);
+
   return (
     <Card className={classes.card}>
       <Fragment>
@@ -20,6 +22,8 @@ const ItemCard = ({ classes, item }) => {
           className={classes.media}
           image={item.imageurl}
           title="Your-Item-Card"
+          component={Link}
+          to={`/profile/${item.itemowner.id}`}
         />
         <CardContent>
           <Avatar aria-label="user" className={classes.avatar}>
@@ -45,18 +49,6 @@ const ItemCard = ({ classes, item }) => {
 
 ItemCard.propTypes = {
   classes: PropTypes.object.isRequired
-};
-
-ItemCard.defaultProps = {
-  item: {
-    title: 'ex.mango',
-    description: 'ex.fruit',
-    tags: ['sweet', 'sour'],
-    imageurl: 'http://via.placeholder.com/350x250?text=Please select an image',
-    itemowner: {
-      email: 'example@example.com'
-    }
-  }
 };
 
 export default withStyles(styles)(ItemCard);
