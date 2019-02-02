@@ -40,7 +40,7 @@ class AccountForm extends Component {
       // @TODO: Wrap in Final Form <Form />
       <Form
         onSubmit={this.onSubmit}
-        render={({ pristine, submitting, invalid }) => (
+        render={({ pristine, submitting, invalid, values }) => (
           <form
             onSubmit={() => {
               console.log('Submitted');
@@ -146,14 +146,14 @@ class AccountForm extends Component {
                   size="large"
                   color="secondary"
                   onClick={e => {
-                    console.log(this.props);
                     e.preventDefault();
                     if (this.state.formToggle) {
+                      console.log(values);
                       this.props.loginMutation({
                         variables: {
                           user: {
-                            email: '',
-                            password: ''
+                            email: values.email,
+                            password: values.password
                           }
                         }
                       });
@@ -161,9 +161,9 @@ class AccountForm extends Component {
                       this.props.signupMutation({
                         variables: {
                           user: {
-                            fullname: '',
-                            email: '',
-                            password: ''
+                            fullname: values.fullname,
+                            email: values.email,
+                            password: values.password
                           }
                         }
                       });
