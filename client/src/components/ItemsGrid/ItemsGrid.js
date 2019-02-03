@@ -12,7 +12,6 @@ import ItemCard from '../ItemCard/ItemCard';
 const ItemsGrid = props => {
   const classes = props.classes;
   const items = props.items;
-  console.log(classes);
   console.log(props);
   console.log(items);
   return (
