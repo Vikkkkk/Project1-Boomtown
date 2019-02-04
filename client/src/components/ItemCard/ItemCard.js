@@ -10,8 +10,7 @@ import {
   Avatar,
   CardMedia,
   Button,
-  Typography,
-  Slide
+  Typography
 } from '@material-ui/core';
 
 import styles from './styles';

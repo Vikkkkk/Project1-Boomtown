@@ -5,7 +5,8 @@ import styles from './styles';
 import FullScreenLoader from '../../components/FullScreenLoader';
 import { Query } from 'react-apollo';
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
-
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 class ItemsContainer extends Component {
   render() {
     console.log(this.props);
@@ -17,11 +18,18 @@ class ItemsContainer extends Component {
           console.log(data);
 
           //??how can we do this below?
-          return <Items classes={this.props.classes} items={data.items} />;
+          return (
+            <Items
+              classes={this.props.classes}
+              items={data.items}
+              path={this.props.location}
+            />
+          );
         }}
       </Query>
     );
   }
 }
 
-export default withStyles(styles)(ItemsContainer);
+// export default withStyles(styles)(ItemsContainer);
+export default withRouter(connect()(withStyles(styles)(ItemsContainer)));

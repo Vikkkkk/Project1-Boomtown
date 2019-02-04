@@ -60,31 +60,6 @@ class AccountForm extends Component {
     }
   };
 
-  // onSubmit = values => {
-  //   console.log('hi');
-
-  //   console.log('>>>>>>>', values);
-  //   if (this.state.formToggle) {
-  //     console.log('>>>>>>onsubmit');
-  //     this.props.loginMutation({
-  //       variables: {
-  //         user: {
-  //           ...values
-  //         }
-  //       }
-  //     });
-  //   } else {
-  //     console.log('>>>>>>onsingu');
-  //     this.props.signupMutation({
-  //       variables: {
-  //         user: {
-  //           ...values
-  //         }
-  //       }
-  //     });
-  //   }
-  // };
-
   render() {
     // console.log(this.props);
     const { classes } = this.props;
@@ -197,31 +172,6 @@ class AccountForm extends Component {
                   variant="contained"
                   size="large"
                   color="secondary"
-                  onClick={e => {
-                    e.preventDefault();
-
-                    if (this.state.formToggle) {
-                      // console.log(values);
-                      this.props.loginMutation({
-                        variables: {
-                          user: {
-                            email: values.email,
-                            password: values.password
-                          }
-                        }
-                      });
-                    } else {
-                      this.props.signupMutation({
-                        variables: {
-                          user: {
-                            fullname: values.fullname,
-                            email: values.email,
-                            password: values.password
-                          }
-                        }
-                      });
-                    }
-                  }}
                   disabled={submitting || pristine || invalid}
                 >
                   {this.state.formToggle ? 'Enter' : 'Create Account'}
