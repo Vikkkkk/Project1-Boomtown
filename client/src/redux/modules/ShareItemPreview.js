@@ -20,8 +20,15 @@ const initialState = {
   description: 'but what is it?',
   tags: [],
   imageurl: 'http://via.placeholder.com/350x250?text=Please select an image',
-  itemowner: {},
-  created: new Date()
+  itemowner: { fullname: 'example user' },
+  // created: new Date()
+  created: new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(Date.now())
 };
 
 export default (state = initialState, action) => {

@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import ItemCard from '../../components/ItemCard/ItemCard';
 import { connect } from 'react-redux';
 
-const ShareItemFormPreview = ({ shareItemPreview }) => {
+const ShareItemFormPreview = ({ shareItemPreview, classes }) => {
   console.log(shareItemPreview);
-  return <ItemCard item={shareItemPreview} />;
+  return (
+    <ItemCard item={shareItemPreview} className={classes.shareFormPreview} />
+  );
 };
 //trying to connect react with redux
 

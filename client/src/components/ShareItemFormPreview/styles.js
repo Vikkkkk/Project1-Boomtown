@@ -9,6 +9,9 @@ const styles = theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2
+  },
+  shareFormPreview: {
+    minHeight: '515px'
   }
 });
 

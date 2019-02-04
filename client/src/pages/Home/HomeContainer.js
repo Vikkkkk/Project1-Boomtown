@@ -10,20 +10,4 @@ class HomeContainer extends Component {
 }
 export default withStyles(styles)(HomeContainer);
 
-// class HomeContainer extends Component {
-//   render() {
-//     return (
-//       <Query query={GET_TAGS}>
-//         {({ loading, error, data }) => {
-//           if (loading) return <p>loading...</p>;
-//           if (error) return <p>Error!</p>;
-//           {
-//             console.log(data);
-//           }
-//           return <p>data received</p>;
-//         }}
-//       </Query>
-//     );
-//   }
-// }
-// export default withStyles(styles)(HomeContainer);
+

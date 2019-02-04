@@ -55,7 +55,7 @@ module.exports = app => {
          */
         // Use bcrypt to generate a cryptographic hash to conceal the user's password before storing it.
         const hashedPassword = await bcrypt.hash(args.user.password, 10);
-        console.log(hashedPassword);
+        console.log("hahahahaha");
         console.log(args.user.password);
         // -------------------------------
 

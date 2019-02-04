@@ -15,7 +15,7 @@ const ItemsGrid = props => {
   console.log(props);
   console.log(items);
   return (
-    <Grid className={classes.grid} container spacing={8}>
+    <Grid className={classes.grid} container spacing={16}>
       {items.map(item => {
         return (
           <Grid item xs={12} sm={6} md={4} className={classes.gridItem}>

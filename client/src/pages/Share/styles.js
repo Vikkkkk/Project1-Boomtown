@@ -2,7 +2,9 @@ const styles = theme => ({
   sharePageFlex: {
     display: 'flex',
     justifyContentL: 'spage-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    padding: '160px',
+    paddingTop: '80px'
   },
   formPreview: {
     maxWidth: '50%'

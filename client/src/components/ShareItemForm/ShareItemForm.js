@@ -103,8 +103,10 @@ class ShareItemForm extends Component {
     };
 
     return (
-      <div className={classes}>
-        <Typography>Share. Borrow. Prosper.</Typography>
+      <div className={classes.formWrapper}>
+        <Typography component="h1" className={classes.formTitle}>
+          Share. Borrow. Prosper.
+        </Typography>
         <Mutation mutation={ADD_ITEM_MUTATION}>
           {addItemMutation => {
             return (
@@ -161,6 +163,7 @@ class ShareItemForm extends Component {
                     <label htmlFor="contained-button-file">
                       {!this.state.fileSelected ? (
                         <Button
+                          color="primary"
                           className={classes.imageButton}
                           variant="contained"
                           component="span"
@@ -221,11 +224,12 @@ class ShareItemForm extends Component {
                       name="description"
                       render={({ input, meta }) => (
                         <div className="field">
-                          <Input
+                          <TextField
                             placeholder="Item Description"
                             {...input}
                             className={classes.input}
                             multiline
+                            rows="4"
                           />
                           {meta.touched &&
                             meta.invalid && (
@@ -243,7 +247,6 @@ class ShareItemForm extends Component {
                       name="tags"
                       render={({ classes, meta }) => (
                         <div className="field">
-                          <label htmlFor="tags">Tags</label>
                           <FormControl fullWidth>
                             <InputLabel>Tags!</InputLabel>
 

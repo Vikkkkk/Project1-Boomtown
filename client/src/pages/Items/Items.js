@@ -5,7 +5,11 @@ import Card from '@material-ui/core/Card';
 import ItemsGrid from '../../components/ItemsGrid/ItemsGrid';
 
 const Items = ({ classes, items }) => {
-  return <ItemsGrid classes={classes} items={items} />;
+  return (
+    <div className={classes.gridContainer}>
+      <ItemsGrid classes={classes} items={items} />
+    </div>
+  );
 };
 
 export default Items;
