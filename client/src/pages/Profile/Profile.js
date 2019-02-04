@@ -19,7 +19,7 @@ const Profile = ({ profile, classes }) => {
   console.log(profile);
 
   return (
-    <div>
+    <div className={classes.profileWrapper}>
       {/* <p>{profile.fullname}</p> */}
       <Card className={classes.card}>
         <CardContent>
@@ -38,9 +38,9 @@ const Profile = ({ profile, classes }) => {
               <span className={classes.bold}>{profile.borrowed.length}</span>{' '}
               Items borrowed
             </Typography>
-            {profile.bio === null ? (
-              <Typography className={classes.noBio}>
-                "This person is too lazy to write a bio"
+            {profile.bio === null || profile.bio === undefined ? (
+              <Typography className={classes.bio}>
+                "This person is too lazy to write a bio....."
               </Typography>
             ) : (
               <Typography className={classes.bio}>"{profile.bio}"</Typography>
@@ -48,11 +48,14 @@ const Profile = ({ profile, classes }) => {
           </div>
         </CardContent>
       </Card>
-      <Grid container item xs={12} sm={6} md={4}>
+      <Typography component="h1" className={classes.profileTitle}>
+        Items Shared
+      </Typography>
+      <Grid container spacing={24}>
         {profile.items.map(item => {
           return (
             <Grid item xs={12} sm={6} md={4}>
-              <ItemCard item={item} />
+              <ItemCard item={item} profile={profile} />
             </Grid>
           );
         })};
