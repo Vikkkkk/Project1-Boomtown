@@ -29,18 +29,6 @@ console.log(
   }).format(today)
 );
 
-// const dateConvert = date => {
-//   new Intl.DateTimeFormat('en-US', {
-//     year: 'numeric',
-//     month: '2-digit',
-//     day: '2-digit',
-//     hour: '2-digit',
-//     minute: '2-digit',
-//     second: '2-digit'
-//   }).format(date);
-// };
-// console.log(Date.now());
-
 const ItemCard = ({ classes, item, match }) => {
   console.log(match);
   console.log(item);
@@ -93,17 +81,6 @@ const ItemCard = ({ classes, item, match }) => {
           </Button>
         </CardActions>
       )}
-      {/* <Slide
-        direction="left"
-        in={match.url !== `/profile/${item.itemowner.id}`}
-        mountOnEnter
-        unmountOnExit
-      > */}{' '}
-      {/* <CardActions>
-        <Button size="small" variant="outlined" color="primary">
-          Borrow this sh!t
-        </Button>
-      </CardActions> */}
     </Card>
   );
 };
@@ -112,5 +89,4 @@ ItemCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-// export default withStyles(styles)(ItemCard);
 export default withRouter(connect()(withStyles(styles)(ItemCard)));

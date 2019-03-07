@@ -10,7 +10,7 @@ class ShareContainer extends Component {
   render() {
     console.log(this.props.match.path);
     return (
-      <Query variables={{ filter: 0 }} query={ALL_TAGS_QUERY}>
+      <Query query={ALL_TAGS_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return <FullScreenLoader inverted />;
           if (error) return <p>{`Error! ${error.message}`}</p>;

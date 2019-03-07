@@ -1,9 +1,5 @@
 import gql from 'graphql-tag';
 
-/**
- * Item and user-related queries and mutations.
- */
-
 const ItemFields = gql`
   fragment ItemFields on Item {
     id
@@ -69,7 +65,6 @@ export const ALL_TAGS_QUERY = gql`
       id
       title
     }
-    # @TODO: Query the id and title fields for tags.
   }
 `;
 
@@ -87,13 +82,8 @@ export const ADD_ITEM_MUTATION = gql`
   }
 `;
 
-// /**
-//  * Auth-related queries and mutations.
-//  */
-
 export const VIEWER_QUERY = gql`
   query viewerQuery {
-    # @TODO: Query the id, email, fullname, and bio fields for the viewer.
     viewer {
       id
       email
@@ -105,22 +95,17 @@ export const VIEWER_QUERY = gql`
 export const LOGOUT_MUTATION = gql`
   mutation {
     logout
-    # @TODO: Run the logout mutation.
   }
 `;
 
 export const SIGNUP_MUTATION = gql`
   mutation signup($user: UserSignUp!) {
-    # @TODO: Pass the user into the signup mutation as an argument
-    # and return the id of the new user when the mutation is complete.
     signup(user: $user)
   }
 `;
 
 export const LOGIN_MUTATION = gql`
   mutation login($user: UserLogin!) {
-    # @TODO: Pass the user into the login mutation as an argument
-    # and return the id of the new user when the mutation is complete.
     login(user: $user)
   }
 `;

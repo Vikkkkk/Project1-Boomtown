@@ -111,7 +111,7 @@ class ShareItemForm extends Component {
           {addItemMutation => {
             return (
               <Form
-                onSubmit={async values => {
+                onSubmit={values => {
                   addItemMutation({
                     variables: {
                       item: {
@@ -142,13 +142,14 @@ class ShareItemForm extends Component {
                 }) => (
                   <form
                     onSubmit={event => {
-                      handleSubmit(event).then(() => {
-                        this.fileInput.current.value = '';
-                        this.setState({ fileSelected: false });
-                        form.reset();
-                        resetItem();
-                        this.setState({ selectedTags: [] });
-                      });
+                      handleSubmit(event);
+                      // .then(() => {
+                      // this.fileInput.current.value = '';
+                      // this.setState({ fileSelected: false });
+                      // form.reset();
+                      // resetItem();
+                      // this.setState({ selectedTags: [] });
+                      // });
                     }}
                   >
                     <FormSpy
@@ -303,7 +304,6 @@ const mapDispatchToProps = dispatch => ({
     dispatch(updateItem(item));
   },
   resetItem() {
-    console.log('am i dispatched?');
     dispatch(resetItem());
   },
   resetImage() {

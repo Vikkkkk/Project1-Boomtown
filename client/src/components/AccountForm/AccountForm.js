@@ -5,10 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import React, { Component, Fragment } from 'react';
-import { Typography, TextField } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import { Form, Field } from 'react-final-form';
-import { Mutation } from 'react-apollo';
 
 import {
   LOGIN_MUTATION,
@@ -19,8 +19,6 @@ import { graphql, compose } from 'react-apollo';
 import validate from './helpers/validation';
 
 import styles from './styles';
-import { FORM_ERROR } from 'react-final-form';
-import { DragHandle } from '@material-ui/icons';
 
 class AccountForm extends Component {
   constructor(props) {
@@ -54,14 +52,12 @@ class AccountForm extends Component {
         });
       }
     } catch (e) {
-      console.log('sdafsdf');
-
-      // return e;
+      throw 'error onsubmit';
     }
   };
 
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     const { classes } = this.props;
 
     return (
@@ -203,15 +199,12 @@ class AccountForm extends Component {
     );
   }
 }
-// AccountForm.propTypes = {
-//   loginMutation: PropTypes.func.isRequired,
-//   signupMutation: PropTypes.func.isRequired,
-//   classes: PropTypes.object
-// };
-// @TODO: Use compose to add the login and signup mutations to this components props.
-// @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.
-// ... imports
-// ... AccountForm component
+AccountForm.propTypes = {
+  loginMutation: PropTypes.func.isRequired,
+  signupMutation: PropTypes.func.isRequired,
+  classes: PropTypes.object
+};
+
 const refetchQueries = [
   {
     query: VIEWER_QUERY
