@@ -40,7 +40,7 @@ module.exports = postgres => {
       };
       try {
         const user = await postgres.query(findUserQuery);
-        console.log(user);
+   
         if (!user) throw 'User was not found.';
         return user.rows[0];
       } catch (e) {
@@ -48,7 +48,7 @@ module.exports = postgres => {
       }
     },
     async getUserById(id) {
-      console.log('helloowerewrw');
+  
       const findUserQuery = {
         text: 'SELECT id,email, name AS fullname, bio FROM users WHERE id = $1',
         values: [id]
@@ -56,7 +56,7 @@ module.exports = postgres => {
       try {
         const user = await postgres.query(findUserQuery);
         if (!user) throw 'User was not found.';
-        console.log(user.rows);
+      
         return user.rows[0];
       } catch (e) {
         throw 'User was not found.';
@@ -70,7 +70,7 @@ module.exports = postgres => {
         });
         return items.rows;
       } catch (e) {
-        console.log(e);
+       
         throw 'Cannot get Item';
       }
     },

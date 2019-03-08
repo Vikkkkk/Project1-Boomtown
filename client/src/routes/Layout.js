@@ -5,7 +5,7 @@ import Profile from '../pages/Profile';
 import Share from '../pages/Share';
 import Home from '../pages/Home';
 import NavBar from '../components/NavBar/NavBar';
-import Typography from '@material-ui/core/Typography';
+
 import { ViewerContext } from '../context/ViewerProvider';
 import FullScreenLoader from '../components/FullScreenLoader';
 
@@ -15,8 +15,6 @@ export default () => (
       {({ viewer, loading }) => {
         if (loading) return <FullScreenLoader inverted />;
         if (viewer) {
-          console.log(viewer);
-
           return (
             <Fragment>
               <NavBar user={viewer} />

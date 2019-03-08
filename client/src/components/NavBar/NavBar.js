@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import logo from '../../images/boomtown.svg';
 import styles from './styles';
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
@@ -42,7 +41,6 @@ class NavBar extends React.Component {
     const { classes } = this.props;
     const { location } = this.props;
     const { anchorEl } = this.state;
-    console.log(this.props);
 
     const open = Boolean(anchorEl);
     return (
@@ -55,7 +53,7 @@ class NavBar extends React.Component {
               aria-label="Menu"
               href="/items"
             >
-              <img src={logo} width="40" />
+              <img src={logo} alt="the logo" width="40" />
             </IconButton>
             <div className={classes.grow} />
             <Slide
@@ -106,7 +104,10 @@ class NavBar extends React.Component {
   }
 }
 NavBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  logoutMutation: PropTypes.func.isRequired
 };
 
 const refetchQueries = [

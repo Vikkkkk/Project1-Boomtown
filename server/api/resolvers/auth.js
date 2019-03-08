@@ -20,9 +20,6 @@ module.exports = app => {
     async signup(parent, args, context) {
       try {
         const hashedPassword = await bcrypt.hash(args.user.password, 10);
-        console.log('hahahahaha');
-        console.log(args.user.password);
-        // -------------------------------
 
         const user = await context.pgResource.createUser({
           name: args.user.fullname,

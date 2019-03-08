@@ -1,23 +1,13 @@
 import React from 'react';
 import ItemCard from '../../components/ItemCard/ItemCard';
-import ItemGrid from '../../components/ItemsGrid/ItemsGrid';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import Gravatar from 'react-gravatar';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  Avatar,
-  CardMedia,
-  Button,
-  Typography
-} from '@material-ui/core';
+import { Card, CardContent, Avatar, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const Profile = ({ profile, classes }) => {
-  console.log(profile);
-
   return (
     <div className={classes.profileWrapper}>
       {/* <p>{profile.fullname}</p> */}
@@ -51,10 +41,10 @@ const Profile = ({ profile, classes }) => {
       <Typography component="h1" className={classes.profileTitle}>
         Items Shared
       </Typography>
-      <Grid container spacing={24}>
+      <Grid container spacing={24} key={profile.items.id}>
         {profile.items.map(item => {
           return (
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4} key={item.id}>
               <ItemCard item={item} profile={profile} />
             </Grid>
           );
@@ -62,6 +52,11 @@ const Profile = ({ profile, classes }) => {
       </Grid>
     </div>
   );
+};
+
+Profile.propTypes = {
+  classes: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Profile);

@@ -1,5 +1,3 @@
-import { FullscreenExit } from '@material-ui/icons';
-
 const styles = {
   card: {
     minWidth: 420,

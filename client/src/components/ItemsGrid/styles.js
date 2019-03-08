@@ -1,5 +1,3 @@
-import color from '@material-ui/core/colors/green';
-
 const styles = theme => ({
   root: {
     flexGrow: 1

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import { connect } from 'react-redux';
+
 import {
   Card,
   CardActions,
@@ -18,21 +18,7 @@ import Gravatar from 'react-gravatar';
 import { Link } from 'react-router-dom';
 const today = Date.now();
 
-console.log(
-  new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
-  }).format(today)
-);
-
 const ItemCard = ({ classes, item, match }) => {
-  console.log(match);
-  console.log(item);
-
   const formatDate = date => {
     let options = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(date).toLocaleDateString([], options);
@@ -86,7 +72,9 @@ const ItemCard = ({ classes, item, match }) => {
 };
 
 ItemCard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  item: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired
 };
 
-export default withRouter(connect()(withStyles(styles)(ItemCard)));
+export default withRouter(withStyles(styles)(ItemCard));

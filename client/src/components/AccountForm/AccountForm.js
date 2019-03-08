@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import React, { Component, Fragment } from 'react';
 import { Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import { FORM_ERROR } from 'final-form';
 
 import { Form, Field } from 'react-final-form';
 
@@ -29,11 +30,8 @@ class AccountForm extends Component {
   }
 
   onSubmit = async values => {
-    console.log('hi');
     try {
-      console.log('>>>>>>>', values);
       if (this.state.formToggle) {
-        console.log('>>>>>>onsubmit');
         await this.props.loginMutation({
           variables: {
             user: {
@@ -42,7 +40,6 @@ class AccountForm extends Component {
           }
         });
       } else {
-        console.log('>>>>>>onsingu');
         await this.props.signupMutation({
           variables: {
             user: {
@@ -52,12 +49,15 @@ class AccountForm extends Component {
         });
       }
     } catch (e) {
-      throw 'error onsubmit';
+      return {
+        [FORM_ERROR]: this.state.formToggle
+          ? 'Incorrect login credentials'
+          : 'An account with this email already exists.'
+      };
     }
   };
 
   render() {
-    console.log(this.props);
     const { classes } = this.props;
 
     return (
@@ -70,7 +70,9 @@ class AccountForm extends Component {
           pristine,
           submitting,
           invalid,
-          values
+          hasValidationErrors,
+          hasSubmitErrors,
+          submitError
         }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
@@ -190,9 +192,11 @@ class AccountForm extends Component {
                 </Typography>
               </Grid>
             </FormControl>
-            <Typography className={classes.errorMessage}>
-              {/* @TODO: Display sign-up and login errors */}
-            </Typography>
+            {hasSubmitErrors && (
+              <Typography className={classes.errorMessage}>
+                {submitError}
+              </Typography>
+            )}
           </form>
         )}
       />

@@ -3,7 +3,7 @@ import { Form, Field, FormSpy } from 'react-final-form';
 import { validate } from './helpers/validation';
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import { Mutation } from 'react-apollo';
-
+import PropTypes from 'prop-types';
 import {
   TextField,
   InputLabel,
@@ -90,17 +90,6 @@ class ShareItemForm extends Component {
 
   render() {
     const { classes, tags, updateItem, resetImage, resetItem } = this.props;
-    console.log(this.state.selectedTags);
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-      PaperProps: {
-        style: {
-          maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-          width: 250
-        }
-      }
-    };
 
     return (
       <div className={classes.formWrapper}>
@@ -124,7 +113,6 @@ class ShareItemForm extends Component {
                     }
                   });
                   resetItem();
-                  // console.log('wtfffreset');
                 }}
                 validate={values =>
                   validate(
@@ -143,13 +131,6 @@ class ShareItemForm extends Component {
                   <form
                     onSubmit={event => {
                       handleSubmit(event);
-                      // .then(() => {
-                      // this.fileInput.current.value = '';
-                      // this.setState({ fileSelected: false });
-                      // form.reset();
-                      // resetItem();
-                      // this.setState({ selectedTags: [] });
-                      // });
                     }}
                   >
                     <FormSpy
@@ -295,6 +276,13 @@ class ShareItemForm extends Component {
     );
   }
 }
+ShareItemForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+  resetImage: PropTypes.func.isRequired,
+  resetItem: PropTypes.func.isRequired,
+  updateItem: PropTypes.func.isRequired,
+  tags: PropTypes.array.isRequired
+};
 
 //this function maps dispatch to props, this way we can access the dispatch (fire an action) from our props.
 //the store is already wrapped our app class so the store is always there. which is also we use this way. where we

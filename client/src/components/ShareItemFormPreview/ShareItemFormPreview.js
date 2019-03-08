@@ -1,24 +1,15 @@
-import React, { Component } from 'react';
-// import Grid from '@material-ui/core/Grid';
+import React from 'react';
 import ItemCard from '../../components/ItemCard/ItemCard';
 import { connect } from 'react-redux';
 
 const ShareItemFormPreview = ({ shareItemPreview, classes }) => {
-  console.log(shareItemPreview);
   return (
     <ItemCard item={shareItemPreview} className={classes.shareFormPreview} />
   );
 };
 //trying to connect react with redux
 
-//() in arrow function means implicit return
 const mapStateToProps = state => {
-  //the following return will not work because redux can't seem to follow the
-  //nested states.
-  // return {
-  //   shareItemPreview: state
-  // }
-
   return {
     ...state
   };

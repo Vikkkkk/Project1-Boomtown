@@ -1,5 +1,4 @@
 export function validate(values, fileSelected, selectedTags) {
-  console.log(selectedTags);
   const errors = {};
 
   /**
